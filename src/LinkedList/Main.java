@@ -19,9 +19,5 @@ public class Main {
         singleLinkedList.deleteLinkedList(2);
         singleLinkedList.traverseLinkedList();
 
-
-
-
-
     }
 }

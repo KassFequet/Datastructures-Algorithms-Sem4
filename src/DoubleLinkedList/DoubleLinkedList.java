@@ -1,12 +1,13 @@
-package LinkedList;
+package DoubleLinkedList;
 
-public class SingleLinkedList {
-    public Node head;
-    public Node tail;
+
+public class DoubleLinkedList {
+    public DoubleNode head;
+    public DoubleNode tail;
     public int size;
 
-    public void createSingleLinkedList(int nodeValue) {
-        Node node = new Node();
+    public void createDoubleLinkedList(int nodeValue) {
+        DoubleNode node = new DoubleNode();
         node.next = null;
         node.value = nodeValue;
         head = node;
@@ -14,45 +15,54 @@ public class SingleLinkedList {
         size = 1;
     }
 
-    //insert Method
-    public void insertLinkedList(int nodeValue, int location) {
-        Node node = new Node();
+    //Insert element in a linked list
+    //1. if the link doesn't exist
+    //2. inserting element at the beginning
+    //3.inserting element at the end
+    //4.inserting anywhere else
+
+    public void insertDoubleLinkedListNode(int nodeValue, int location) {
+        DoubleNode node = new DoubleNode();
         node.value = nodeValue;
 
-        if (head == null) {
-            createSingleLinkedList(nodeValue);
+        if (head == null){
+            createDoubleLinkedList(nodeValue);
             return;
-        } else if (location == 0) {
+        } else if (location == 0){
             node.next = head;
+            node.previous = null;
             head = node;
         } else if (location >= size) {
             node.next = null;
+            node.previous = tail;
             tail.next = node;
             tail = node;
         } else {
-            Node tempNode = head;
+            DoubleNode tempNode = head;
             int index = 0;
             while (index < location - 1) {
                 tempNode = tempNode.next;
                 index++;
             }
-            Node nextNode = tempNode.next;
+            DoubleNode nextNode = tempNode.next;
+            node.previous = tempNode;
+            node.next = tempNode.next;
             tempNode.next = node;
-            node.next = nextNode;
+            node.next.previous = nextNode;
         }
         size++;
     }
 
     // Traversing through a linked list
-    public void traverseLinkedList() {
+    public void traverseDoubleLinkedList(){
         if (head == null) {
             System.out.println("Linked list does not exist");
         } else {
-            Node tempNode = head;
-            for (int i = 0; i < size; i++) {
+            DoubleNode tempNode = head;
+            for (int i = 0; i < size; i++){
                 System.out.print(tempNode.value);
-                if (i != size - 1) {
-                    System.out.print(" -> ");
+                if (i != size -1){
+                    System.out.print(" <-> ");
                 }
                 tempNode = tempNode.next;
 
@@ -60,12 +70,31 @@ public class SingleLinkedList {
             System.out.println("\n");
 
         }
+
     }
 
-    //EXERCISE 1: given a value, search for that element and return a boolean if the element exist or not.
+    // Traversing through a linked list
+    public void reverseTraverseDoubleLinkedList(){
+        if (head == null) {
+            System.out.println("Linked list does not exist");
+        } else {
+            DoubleNode tempNode = tail;
+            for (int i = 0; i < size; i++){
+                System.out.print(tempNode.value);
+                if (i != size -1){
+                    System.out.print(" -> ");
+                }
+                tempNode = tempNode.previous;
 
+            }
+            System.out.println("\n");
+
+        }
+    }
+
+    //PRACTICE 1: given a value, search for that element and return a boolean if the element exist or not.
     public boolean searchValue(int nodeValue) {
-        Node tempNode = head;
+        DoubleNode tempNode = head;
         while (tempNode != null) {
             if (tempNode.value == nodeValue) {
                 return true;
@@ -75,9 +104,9 @@ public class SingleLinkedList {
         return false;
     }
 
-    //EXERCISE 2: Given a location Implement a Delete method.
 
-    public void deleteLinkedList(int location) {
+    //PRACTICE 2: Given a location Implement a Delete method.
+    public void deleteDoubleLinkedListNode(int location) {
 
         if (head == null) {
             System.out.println("Linked list does not exist");
@@ -92,7 +121,7 @@ public class SingleLinkedList {
             head = head.next;
             size--;
         } else if (location >= size - 1) {
-            Node tempNode = head;
+            DoubleNode tempNode = head;
             for (int i = 0; i < size - 2; i++) {
                 tempNode = tempNode.next;
             }
@@ -105,7 +134,7 @@ public class SingleLinkedList {
             tail = tempNode;
             size--;
         } else {
-            Node tempNode = head;
+            DoubleNode tempNode = head;
             for (int i = 0; i < location - 1; i++) {
                 tempNode = tempNode.next;
             }
