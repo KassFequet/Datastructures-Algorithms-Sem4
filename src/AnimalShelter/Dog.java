@@ -1,0 +1,15 @@
+package AnimalShelter;
+
+public class Dog extends Animal{
+    public Dog(String name) {
+        super(name);
+    }
+
+    public String toString() {
+        return "(DOG " +
+                "Name = '" + getName() +
+                ", Order =" + getOrder() +
+                ')';
+    }
+
+}
